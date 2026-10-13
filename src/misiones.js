@@ -26,7 +26,20 @@ import { ESTADOS } from './datos.js'
 // Pista: prueba en la consola 0.1 + 0.2 y verás por qué hay que redondear.
 //        Math.round(x * 100) / 100
 export function totalPedido(pedido) {
-  return 0 // TODO
+f (!pedido || !pedido.items || pedido.items.length === 0) {
+    return 0;
+  }
+  
+  // Suma de (cantidad * precioUnitario) de cada item
+  const subtotal = pedido.items.reduce((sum, item) => sum + (item.cantidad * item.precioUnitario), 0);
+  
+  // Si no viene descuento, es 0
+  const descuento = pedido.descuento !== undefined ? pedido.descuento : 0;
+  
+  // Total = subtotal * (1 - descuento), redondeado a 2 decimales
+  const total = subtotal * (1 - descuento);
+  return Math.round(total * 100) / 100;
+
 }
 
 // ----------------------------------------------------------------------------
